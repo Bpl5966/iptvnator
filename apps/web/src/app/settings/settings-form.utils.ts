@@ -11,6 +11,7 @@ import {
     EpgViewMode,
     Language,
     normalizeDashboardRailsSettings,
+    normalizeEmbeddedMpvExtraOptions,
     normalizeExternalPlayerArguments,
     Settings,
     StartupBehavior,
@@ -78,6 +79,7 @@ export function createSettingsForm(
         ],
         recordingFolder: '',
         embeddedMpvFrameCopy: false,
+        embeddedMpvExtraOptions: '',
         coverSize: 'medium' as CoverSize,
         ...(supportsEpg
             ? {
@@ -147,6 +149,9 @@ export function createSettingsFromFormValue(
         remoteControlPort: Number(value.remoteControlPort ?? 8765),
         recordingFolder: value.recordingFolder ?? '',
         embeddedMpvFrameCopy: value.embeddedMpvFrameCopy ?? false,
+        embeddedMpvExtraOptions: normalizeEmbeddedMpvExtraOptions(
+            value.embeddedMpvExtraOptions
+        ),
         coverSize: value.coverSize ?? 'medium',
         epgUrl,
         preferUploadedEpgOverXtream:
@@ -170,3 +175,6 @@ function normalizeExternalPlayerPath(
 ): string {
     return playerPath?.trim() ?? '';
 }
+
+
+
